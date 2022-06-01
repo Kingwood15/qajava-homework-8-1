@@ -6,12 +6,34 @@ import org.junit.jupiter.api.Test;
 public class RadioTest {
 
     @Test
+    void shouldSetMaxRadioStationLessZero() {
+
+        Radio radio = new Radio(-2);
+
+        byte actual = radio.getMaxRadioStation();
+        byte expected = 10;
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSetMaxRadioStationZero() {
+
+        Radio radio = new Radio(0);
+
+        byte actual = radio.getMaxRadioStation();
+        byte expected = 10;
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     void shouldSetRadioStationInDefaultRange() {
 
         Radio radio = new Radio();
-        radio.setRadioStation(5);
+        radio.setCurrentRadioStation(5);
 
-        byte actual = radio.getRadioStation();
+        byte actual = radio.getCurrentRadioStation();
         byte expected = 5;
 
         Assertions.assertEquals(expected, actual);
@@ -21,9 +43,9 @@ public class RadioTest {
     void shouldSetRadioStationInRange() {
 
         Radio radio = new Radio(47);
-        radio.setRadioStation(24);
+        radio.setCurrentRadioStation(24);
 
-        byte actual = radio.getRadioStation();
+        byte actual = radio.getCurrentRadioStation();
         byte expected = 24;
 
         Assertions.assertEquals(expected, actual);
@@ -33,9 +55,9 @@ public class RadioTest {
     void shouldSetRadioStationLessZero() {
 
         Radio radio = new Radio();
-        radio.setRadioStation(-2);
+        radio.setCurrentRadioStation(-2);
 
-        byte actual = radio.getRadioStation();
+        byte actual = radio.getCurrentRadioStation();
         byte expected = 0;
 
         Assertions.assertEquals(expected, actual);
@@ -46,9 +68,9 @@ public class RadioTest {
 
         int TestValueMaxRadioStation = 15;
         Radio radio = new Radio(TestValueMaxRadioStation);
-        radio.setRadioStation(TestValueMaxRadioStation+15);
+        radio.setCurrentRadioStation(TestValueMaxRadioStation + 15);
 
-        byte actual = radio.getRadioStation();
+        byte actual = radio.getCurrentRadioStation();
         byte expected = 0;
 
         Assertions.assertEquals(expected, actual);
@@ -58,11 +80,11 @@ public class RadioTest {
     void shouldNextRadioStationInRange() {
 
         Radio radio = new Radio();
-        radio.setRadioStation(5);
+        radio.setCurrentRadioStation(5);
 
         radio.nextRadioStation();
 
-        byte actual = radio.getRadioStation();
+        byte actual = radio.getCurrentRadioStation();
         byte expected = 6;
 
         Assertions.assertEquals(expected, actual);
@@ -73,11 +95,11 @@ public class RadioTest {
 
         int TestValueMaxRadioStation = 24;
         Radio radio = new Radio(TestValueMaxRadioStation);
-        radio.setRadioStation(TestValueMaxRadioStation-1);
+        radio.setCurrentRadioStation(TestValueMaxRadioStation - 1);
 
         radio.nextRadioStation();
 
-        byte actual = radio.getRadioStation();
+        byte actual = radio.getCurrentRadioStation();
         byte expected = 0;
 
         Assertions.assertEquals(expected, actual);
@@ -87,11 +109,11 @@ public class RadioTest {
     void shouldPrevRadioStationInRange() {
 
         Radio radio = new Radio();
-        radio.setRadioStation(5);
+        radio.setCurrentRadioStation(5);
 
         radio.prevRadioStation();
 
-        byte actual = radio.getRadioStation();
+        byte actual = radio.getCurrentRadioStation();
         byte expected = 4;
 
         Assertions.assertEquals(expected, actual);
@@ -102,12 +124,12 @@ public class RadioTest {
 
         int TestValueMaxRadioStation = 34;
         Radio radio = new Radio(TestValueMaxRadioStation);
-        radio.setRadioStation(0);
+        radio.setCurrentRadioStation(0);
 
         radio.prevRadioStation();
 
-        byte actual = radio.getRadioStation();
-        byte expected = (byte)(TestValueMaxRadioStation-1);
+        byte actual = radio.getCurrentRadioStation();
+        byte expected = (byte) (TestValueMaxRadioStation - 1);
 
         Assertions.assertEquals(expected, actual);
     }
@@ -119,7 +141,7 @@ public class RadioTest {
 
         radio.increaseVolume();
 
-        byte actual = radio.getVolume();
+        byte actual = radio.getCurrentVolume();
         byte expected = 1;
 
         Assertions.assertEquals(expected, actual);
@@ -134,7 +156,7 @@ public class RadioTest {
             radio.increaseVolume();
         }
 
-        byte actual = radio.getVolume();
+        byte actual = radio.getCurrentVolume();
         byte expected = 100;
 
         Assertions.assertEquals(expected, actual);
@@ -147,7 +169,7 @@ public class RadioTest {
 
         radio.decreaseVolume();
 
-        byte actual = radio.getVolume();
+        byte actual = radio.getCurrentVolume();
         byte expected = 0;
 
         Assertions.assertEquals(expected, actual);
@@ -163,7 +185,7 @@ public class RadioTest {
 
         radio.decreaseVolume();
 
-        byte actual = radio.getVolume();
+        byte actual = radio.getCurrentVolume();
         byte expected = 49;
 
         Assertions.assertEquals(expected, actual);
