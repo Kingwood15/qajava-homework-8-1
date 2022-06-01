@@ -1,30 +1,50 @@
 package ru.netology.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
 public class Radio {
 
+    private byte maxRadioStation;
     private byte currentRadioStation;
     private byte currentVolume;
 
-    public void setRadioStation(byte newRadioStation) {
+    public Radio(int maxRadioStation) {
+        if (maxRadioStation > 0) {
+            this.maxRadioStation = (byte)(maxRadioStation - 1);
+        } else {
+            this.maxRadioStation = 10;
+        }
+    }
+
+    public Radio() {
+        this.maxRadioStation = 10;
+    }
+
+    public void setCurrentRadioStation(int newRadioStation) {
 
         if (newRadioStation < 0) {
             return;
         }
 
-        if (newRadioStation > 9) {
+        if (newRadioStation > maxRadioStation) {
             return;
         }
 
-        currentRadioStation = newRadioStation;
+        currentRadioStation = (byte) newRadioStation;
     }
 
+    /*
     public byte getRadioStation() {
         return currentRadioStation;
     }
+     */
 
     public void nextRadioStation() {
 
-        if (currentRadioStation < 9) {
+        if (currentRadioStation < maxRadioStation) {
             currentRadioStation++;
         } else {
             currentRadioStation = 0;
@@ -36,39 +56,26 @@ public class Radio {
         if (currentRadioStation > 0) {
             currentRadioStation -= 1;
         } else {
-            currentRadioStation = 9;
+            currentRadioStation = maxRadioStation;
         }
     }
 
     /*
-    private void setVolume(byte newVolume) {
-
-        if (newVolume < 0) {
-            return;
-        }
-
-        if (newVolume > 10) {
-            return;
-        }
-
-        volume = newVolume;
-    }
-    */
-
     public byte getVolume() {
         return currentVolume;
     }
+     */
 
     public void increaseVolume() {
 
-        if (currentVolume < 10) {
+        if (currentVolume < 100) {
             currentVolume++;
         }
     }
 
     public void decreaseVolume() {
 
-        if (currentVolume > 0){
+        if (currentVolume > 0) {
             currentVolume -= 1;
         }
     }
